@@ -7,23 +7,25 @@ OPTIONS = {'NotifyDays': 30, 'ItemsWatch': 5}
 
 PERIOD = { 'none': timedelta(days=0), 'day': timedelta(days=1), 'weak': timedelta(days=7), 'month': timedelta(days=30), 'year': timedelta(days=365) }
 
-# Списки, совпадающие с файлами. Storable - файл переписывается с этого списка
-# <listName>: (<period>, <filePath>, <storable>)
+# Списки, совпадающие с файлами. Storable - файл переписывается с этого списка целиком
+# <listName>: (<period>, <filePath>, <storable>, <colorInListbox: #RRGGBB>, <Name>)
 FILES = {
-      'Dates': (PERIOD['year'], 'info/Dates.txt', True),
-      'Events': (PERIOD['none'], 'info/Events.txt', False),
-      'Cargo': (PERIOD['none'], 'info/DeathCargo.txt', False),
-      'Usualy': (PERIOD['day'], 'info/Usealy.txt', True)
-    }
+  'Events': (PERIOD['none'], 'info/Events.txt', False, "#8f0000", "События"),
+  'Bithday': (PERIOD['year'], 'info/Bithdays.txt', True, "#00FF05", "Дни рождения"),
+  'Dates': (PERIOD['year'], 'info/Dates.txt', True, "#5f5f5f", "Даты"),
+  'Cargo': (PERIOD['none'], 'info/DeathCargo.txt', False, "#6f1f1f", "Мёртвый груз"),
+  'Usualy': (PERIOD['day'], 'info/Usualy.txt', False, "#000500", "Повседневные дела"),
+  'Elapsed': (PERIOD['none'], 'info/Elapsed.txt', True, "#afafaf", "Прошедшие")}
 
 # Списки, полученные путём обработки другого списка указанной функцией-извлекателем
-# <listName>: (<extractorName>, <storable>, <saveInFile>, <listDisplayName>, <period>, <append?>)
+# <listName>: (<extractorName>, <storable?>, <file>, <listDisplayName>, <period>, <append?>, <colorInListbox: #RRGGBB>)
 LISTS = {
-      'Nears': ('near_dates', True, FILES['Dates'][1], 'Даты', PERIOD['year'], True),
-      'Actual': ('actual_events', True, FILES['Events'][1], 'Ожидается', PERIOD['none'], True),
-      'Elapsed': ('elapsed_events', False, '', 'Прошедшие', PERIOD['none'], False),
-      'Cargo': ('death_cargo', True, FILES['Cargo'][1], 'Мёртвый груз', PERIOD['none'], False),
-      'Everyday': ('usualy_work', True, FILES['Usualy'][1], 'Ежедневные дела', PERIOD['day'], True),
-      'Everyweak': ('usualy_word', True, FILES['Usualy'][1], 'Еженедельные дела', PERIOD['weak'], True),
-      'Everymonth': ('usualy_word', True, FILES['Usualy'][1], 'Ежемесячные дела', PERIOD['month'], True)
-    }
+  'Nears': ('near_dates', True, 'Dates', 'Даты', PERIOD['year'], True, "#1f001f"),
+  'Actual': ('actual_events', True, 'Events', 'Ожидается', PERIOD['none'], True, "#6f0000"),
+  'Bithday': ('near_dates', True, 'Bithday', 'Дни рождения', PERIOD['year'], False, "#002500"),
+  'Elapsed': ('elapsed_events', False, 'Elapsed', 'Прошедшие', PERIOD['none'], False, "#ffffff"),
+  'Cargo': ('death_cargo', True, 'Cargo', 'Мёртвый груз', PERIOD['none'], False, "#6f1f1f"),
+  'Everyday': ('usualy_work', True, 'Usualy', 'Ежедневные дела', PERIOD['day'], True, "#00f500"),
+  'Everyweak': ('usualy_work', True, 'Usualy', 'Еженедельные дела', PERIOD['weak'], True, "#005f00"),
+  'Everymonth': ('usualy_work', True, 'Usualy', 'Ежемесячные дела', PERIOD['month'], True, "#004f00")}
+
